@@ -1,17 +1,64 @@
 <!DOCTYPE html>
 <html>
 <body>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-	<line x1="0" y1="16" x2="31" y2="0" style="stroke:rgb(255,0,0); stroke-width:1" />
-	<line x1="0" y1="16" x2="31" y2="32" style="stroke:rgb(255,0,0); stroke-width:1" />
-	<line x1="31" y1="32" x2="64" y2="16" style="stroke:rgb(255,0,0); stroke-width:1" />
-	<line x1="64" y1="16" x2="31" y2="0" style="stroke:rgb(255,0,0); stroke-width:1" />
-</svg>
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-	 <polygon points="0,16 31,0 0,16 31,32 64,16 31,0" style="fill: orange;"/>
-	 <polygon points="0,16 31,0 0,16 31,32 64,16 31,0" style="fill: orange;"/>
-</svg>
 
+
+<canvas id="myCanvas" width="1000" height="500" style="border:1px solid #000000;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script type="text/javascript">
+<!-- hide for older browser
+	 ds = prompt("Zadej délku strany v px:");;
+	 pocet_sloupcu = prompt("Zadej počet sloupců:");
+	 pocet_radku = prompt("Zadej počet řádků:");
+	 
+	 
+	pocet = pocet_sloupcu * pocet_radku;
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	var fromLeft;
+	var vykr_sloupcu = 0;
+	var vykr_radku = -1;
+	x = 0.86 * ds;
+	y = 0.5 * ds;
+	
+for(var i = 1; i <= pocet; i++ ){	
+	
+	if(vykr_sloupcu == pocet_sloupcu){
+			vykr_sloupcu = 0;
+			vykr_radku ++;
+	}
+
+	
+	fromLeft = 2*x*vykr_sloupcu;
+	fromTop = y*vykr_radku;
+	
+	if(vykr_radku%2){	//lichy radek
+		fromLeft = fromLeft-x;
+	}
+	
+	ctx.strokeStyle = "darkgreen";
+	ctx.fillStyle="lightgreen";
+	ctx.beginPath();
+	ctx.moveTo(fromLeft, y+fromTop);
+	ctx.lineTo(x+fromLeft,fromTop);
+	ctx.lineTo(2*x+fromLeft, y+fromTop);
+	ctx.lineTo(x+fromLeft, 2*y+fromTop);
+	ctx.closePath();
+	ctx.stroke();
+	ctx.fill();
+	
+	ctx.font="30px Arial";
+	ctx.fillStyle="blue";
+	
+	vykr_sloupcu ++; 
+}	
+-->
+</script>
 </body>
 </html>
