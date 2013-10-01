@@ -10,14 +10,14 @@
 <canvas id="myCanvas" width="1000" height="500" style="border:1px solid #000000;">
 Your browser does not support the HTML5 canvas tag.
 </canvas>
-
 <script type="text/javascript">
 <!-- hide for older browser
 	 ds = prompt("Zadej délku strany v px:");;
 	 pocet_sloupcu = prompt("Zadej počet sloupců:");
 	 pocet_radku = prompt("Zadej počet řádků:");
-	 
-	 
+	  /*ds = 50;
+	  pocet_sloupcu = 20;
+	  pocet_radku = 20;*/
 	pocet = pocet_sloupcu * pocet_radku;
 	var c=document.getElementById("myCanvas");
 	var ctx=c.getContext("2d");
@@ -53,8 +53,9 @@ for(var i = 1; i <= pocet; i++ ){
 	ctx.stroke();
 	ctx.fill();
 	
-	ctx.font="30px Arial";
-	ctx.fillStyle="blue";
+	ctx.font="10px Arial";
+	ctx.fillStyle="red";
+	ctx.fillText(i,fromLeft+(0.5*ds),fromTop+(0.5*ds));
 	
 	vykr_sloupcu ++; 
 }	
