@@ -5,8 +5,6 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
 
-
-
 <canvas id="myCanvas" width="1000" height="500" style="border:1px solid #000000;">
 Your browser does not support the HTML5 canvas tag.
 </canvas>
@@ -61,5 +59,6 @@ for(var i = 1; i <= pocet; i++ ){
 }	
 -->
 </script>
+Test kompatibility s novými netbeans
 </body>
 </html>
