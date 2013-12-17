@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Kreslí podle modelu</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script type="text/javascript">
+            var model = [
+		['g','h','g','h','g','h'],
+		['g','h','g','h','h','g','h','h','h','h','h'],
+		['g','h','g','h','g','h','g']
+		]; 
+            window.onload = function() {
+                var platno = document.getElementById("platno");
+                var context = platno.getContext("2d");
+                var sirkaObrazku = 52;
+                var vyskaObrazku = 30;
+                var grass = new Image();
+                grass.src = "ctverec2.png";
+                var house = new Image();
+                house.src = "ctverec_house.png";
+
+                var pocatekX = 0;
+                var pocatekY = 400;
+                var cilovyBodX = 0;
+                var cilovyBodY = 400;
+                
+                house.onload = function(){
+                    for (var r=0; r < model.length; r++){
+                        for(var s =0; s < model[r].length; s++){
+                            if(model[r][s] == "g"){
+                                context.drawImage(grass, cilovyBodX, cilovyBodY, sirkaObrazku, vyskaObrazku);
+                            }else{
+                                context.drawImage(house, cilovyBodX, cilovyBodY, sirkaObrazku, vyskaObrazku);
+                            }
+                            cilovyBodX += 26;
+                            cilovyBodY -= 15;
+                        }
+                        cilovyBodX -= (model[r].length-1)*26;
+                        cilovyBodY += (model[r].length+1)*15;
+                    }
+                }
+            };
+
+        </script> 
+    </head>
+    <body>
+        <canvas id="platno" width="1000px" height="600px"></canvas>
+    </body>
+</html>
