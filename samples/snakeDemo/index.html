@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--
+Here comes the text of your license
+Each line should be prefixed with 
+-->
+<html>
+    <head>
+        <title>isoSnake</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script type="text/javascript" src="../../iwe.js"></script>
+    </head>
+    <body>
+        <center> 
+        <canvas id="c" width="1140" height="740" style="border: 2px solid orange;">Váš prohlížeč bohužel tuto technologii nepodporuje, porsím aktualizujte jej</canvas>
+        <!--<br>Points: <input type="text" id="score" size="2">-->
+        </center>
+        <script type="text/javascript">
+            iwe.INIT({
+                 canvas: 'c',
+                 startAt: {x: 600, y: 15},
+                 tile: {width: 52, height: 30},
+                 fullScreen: true
+            });
+            iwe.loadImages('./images/', [  'grass.png','rocks.png', //0,1
+                                            'head_right.png','head_down.png','head_up.png','head_left.png',//2,3,4,5
+                                            'segment_right.png','segment_down.png','segment_left.png','segment_left.png',//6,7,8,9
+                                            'tile_right.png','tile_down.png','tile_up.png','tile_left.png', //10,11,12,13
+                                            'apple.png','apple2.png','angle.png' //14,15,16
+                                         ]);
+            var map = [ //20x20
+                        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 
+                     ]; 
+            var tiles = {
+                t0: function (x,y){
+                    this.x = x;
+                    this.y = y;
+                    this.offsetX = 0;
+                    this.offsetY = 0;
+                    this.spriteId = 0;
+                    this.walkable = true;
+                }, 
+                t1: function (x,y){
+                    this.x = x;
+                    this.y = y;
+                    this.offsetX = 0;
+                    this.offsetY = 0;
+                    this.spriteId = 1;
+                    this.walkable = false;
+                }
+            };
+            window.onload = function (){
+                iwe.fillModel(map, tiles);
+            /*iwe.Tiles.t0 ={
+                spriteId: 0,
+                offset: {x: 0, y: 0},
+                walkable: true
+            };
+            iwe.Tiles.t1 = {
+                spriteId: 1,
+                offset: {x: 0, y: 0}, //y: 15
+                walkable: false
+            };
+            iwe.Tiles.t2 = {
+                spriteId: 15,
+                offset: {x: -7, y: 25},
+                walkable: true
+            };*/
+                   
+            var SNAKE = {
+                body: [],
+                speed: 250, //ms on one tile
+                moving: false,
+                points: 0,
+                eatSound: new Audio("./sounds/eat.mp3")
+                
+            };
+            var FOOD = { //first piece will look like this
+                x: 5,
+                y: 5,
+                points: 1,
+                spriteId: 14,
+                offset: {
+                    x: 7,
+                    y: -25
+                }
+            };
+            function cSegment(x,y,sprite,direction){
+                this.spriteId = sprite;
+                this.x = x;
+                this.y = y;
+                this.offset = {x: 0, y: -30};
+                this.direction = direction;
+            } 
+            
+            var head = null;
+            var tail = null;
+            
+            function pushSnake (){
+                for(var i = 0; i <= SNAKE.body.length-1; i++){
+                    var segment = SNAKE.body[i];
+                    var coor = iwe.TRANSFORM.toIso(segment.x, segment.y);
+                    coor.x += segment.offset.x;
+                    coor.y += segment.offset.y;
+                    if(i===0){ //drawing tail 
+                        if(segment.direction === 'right'){segment.spriteId = 10;}
+                        if(segment.direction === 'down'){segment.spriteId = 11;}
+                        if(segment.direction === 'up'){segment.spriteId = 12;}
+                        if(segment.direction === 'left'){segment.spriteId = 13;}
+                    } else if(i===SNAKE.body.length-1){ //drawing head
+                        if(segment.direction === 'right'){segment.spriteId = 2;}
+                        if(segment.direction === 'down'){segment.spriteId = 3;}
+                        if(segment.direction === 'up'){segment.spriteId = 4;}
+                        if(segment.direction === 'left'){segment.spriteId = 5;}
+                    } else{ //drawing other segments
+                        if(segment.direction === 'right'){segment.spriteId = 6;}
+                        if(segment.direction === 'down'){segment.spriteId = 7;}
+                        if(segment.direction === 'up'){segment.spriteId = 8;}
+                        if(segment.direction === 'left'){segment.spriteId = 9;}
+                        if(SNAKE.body[i+1].x != SNAKE.body[i-1].x  && SNAKE.body[i+1].y != SNAKE.body[i-1].y){ //angle segment
+                            segment.spriteId = 16;
+                        }
+                    }
+                    iwe.DRAW.image(iwe.images[segment.spriteId],coor.x,coor.y);
+                }
+                console.log(SNAKE.body);
+            }
+            function pushFood (){
+                var coor = iwe.TRANSFORM.toIso(FOOD.x, FOOD.y);
+                coor.x += FOOD.offset.x;
+                coor.y += FOOD.offset.y;
+                iwe.DRAW.image(iwe.images[FOOD.spriteId],coor.x,coor.y); 
+                console.log(iwe.images[FOOD.spriteId]);
+            }
+            function newFood (){
+                FOOD.x = Math.floor(Math.random() * (iwe.Model.length-3)) + 1;
+                FOOD.y = Math.floor(Math.random() * (iwe.Model[0].length-3)) + 1;
+                for(var i = 0; i <= SNAKE.body.length-1; i++){ //food will never appear in the snake
+                    if(FOOD.x === SNAKE.body[i].x && FOOD.y === SNAKE.body[i].y){
+                        newFood();
+                    }
+                }
+            }
+            window.onkeydown = function(e){ //this changing direction of snakes moves
+                        if (e.keyCode === 38) {         //up
+                            if (head.direction !== "down" && SNAKE.moving) {
+                                SNAKE.moving = false;
+                                head.direction = "up";
+                            } 
+                        } else if (e.keyCode === 40) { //down
+                            if (head.direction !== "up" && SNAKE.moving) {
+                                SNAKE.moving = false;
+                                head.direction = "down";
+                            }
+                        } else if (e.keyCode === 37) { //left
+                            if (head.direction !== "right" && SNAKE.moving) {
+                                SNAKE.moving = false;
+                                head.direction = "left";
+                            }
+                        } else if (e.keyCode === 39) { //right
+                            if (head.direction !== "left" && SNAKE.moving) {
+                                SNAKE.moving = false;
+                                head.direction = "right";
+                            }
+                        }
+                };
+                
+            function moveSnake(){
+                for(var i = 0; i <= SNAKE.body.length-2; i++){
+                    SNAKE.body[i].x = SNAKE.body[i+1].x;
+                    SNAKE.body[i].y = SNAKE.body[i+1].y;
+                    SNAKE.body[i].direction = SNAKE.body[i+1].direction;
+                }
+                if (head.direction === "left") {                
+                    head.x --;
+                    head.spriteId = 5;
+                    head.offset.y = -36;
+                }
+                if (head.direction === "right") {                  
+                    head.x ++;
+                    head.spriteId = 2;
+                    head.offset.y = -30;
+                }
+                if (head.direction === "up") {
+                  head.y --;
+                  head.spriteId = 4;
+                  head.offset.y = -36;
+                }
+                if (head.direction === "down") {                 
+                  head.y ++;
+                  head.spriteId = 3;
+                  head.offset.y = -30;
+                }
+                if (!iwe.getTile(head.x,head.y).walkable){
+                    clearInterval(interval);
+                    alert("--GAME OVER--\nYou crashed into the wall!\n\nFinal score: "+SNAKE.points);
+                }
+                for(var i = 0; i <= SNAKE.body.length-2; i++){
+                        if(head.x === SNAKE.body[i].x && head.y === SNAKE.body[i].y){
+                          alert("--GAME OVER--\nYou crashed into your own tail!\n\nFinal score: "+SNAKE.points);
+                            clearInterval(interval);
+                        }
+                }
+                if(head.x === FOOD.x && head.y === FOOD.y){ //snake swoloved an apple
+                    newFood();
+                    SNAKE.points += FOOD.points;
+                    var segment = SNAKE.body[0], coor_x, coor_y, tailSprite, tileDirection;
+                        if(segment.direction === 'right'){coor_x = segment.x-1; coor_y = segment.y; tailSprite = 10;}
+                        if(segment.direction === 'down'){coor_x = segment.x; coor_y = segment.y-1; tailSprite = 11;}
+                        if(segment.direction === 'up'){coor_x = segment.x; coor_y = segment.y+1; tailSprite = 12;}
+                        if(segment.direction === 'left'){coor_x = segment.x+1; coor_y = segment.y; tailSprite = 13;}
+                    SNAKE.body.unshift(new cSegment(coor_x, coor_y, tailSprite, segment.direction));
+                    SNAKE.eatSound.play();
+                }
+                SNAKE.moving = true;
+                pushSnake();
+            }
+            function draw(){
+                iwe.CLEAR();
+                iwe.DRAW.all();
+                moveSnake();
+                pushSnake();
+                pushFood();
+            }
+            
+            SNAKE.body = [
+             new cSegment(1,3,10),
+             new cSegment(2,3,6),
+             new cSegment(3,3,6),
+             new cSegment(4,3,6),
+             new cSegment(5,3,6),
+             new cSegment(6,3,2,'right')
+             ];
+             head = SNAKE.body[SNAKE.body.length-1];
+             tail = SNAKE.body[0];
+   
+         var interval = setInterval(function(){
+                draw();
+                console.log(head.direction+'; '+SNAKE.body[1].x);
+            }, SNAKE.speed);
+    };
+        </script>
+    </body>
+</html>
