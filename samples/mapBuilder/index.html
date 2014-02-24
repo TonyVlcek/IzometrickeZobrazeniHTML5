@@ -5,7 +5,7 @@ Each line should be prefixed with
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>MapBuilder</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <script type="text/javascript" src="../../iwe.js"></script>
@@ -16,27 +16,27 @@ Each line should be prefixed with
     iwe.INIT({
        canvas: 'main',
        tile: {width: 52, height: 30}, 
-       startAt: {x: 300, y: 200},
+       startAt: {x: 500, y: 100},
        fullScreen: true
     });
-    iwe.loadImages('./images/', [   'default.png','block.png','hero.png','highlite.png',
+    iwe.loadImages('./images/', [   'block.png','hero.png','highlite.png',
                                     'menu_1.png','menu_2.png'
                                 ]);
     var map = [
-                    [0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,1,1,1,0,0,0,0,1,1,0,0,0,0,0,0],
+                    [0,0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0],
+                    [0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0],
                     [0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0]
+                    [0,0,1,1,1,0,0,1,1,1,0,1,1,1,0,0,0],
+                    [0,0,1,1,1,0,0,0,1,0,0,1,0,1,0,0,0],
+                    [0,0,1,1,1,0,0,0,1,0,0,1,1,1,0,0,0],
+                    [0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0]
               ];
     var tiles = {
         t0: function (x,y){
@@ -44,16 +44,16 @@ Each line should be prefixed with
                 this.y = y;
                 this.offsetX = 0;
                 this.offsetY = 0;
-                this.spriteId = 1;
+                this.spriteId = 0;
                 this.walkable = true;
         },
         t1: function (x,y){
                 this.x = x;
                 this.y = y;
                 this.offsetX = 0;
-                this.offsetY = 0;
+                this.offsetY = 20;
                 this.spriteId = 0;
-                this.walkable = false;
+                this.walkable = true;
         }
     };   
     window.onload = function launch(){
@@ -124,7 +124,7 @@ Each line should be prefixed with
             coor.x += tile.offsetX;
             coor.y -= tile.offsetY;
             redraw();
-            iwe.DRAW.image(iwe.images[3],coor.x,coor.y);
+            iwe.DRAW.image(iwe.images[2],coor.x,coor.y);
         }
         iwe.Canvas.onmousedown = canvasMouseDown;
         iwe.Canvas.onmouseup = canvasMouseUp;
@@ -132,19 +132,12 @@ Each line should be prefixed with
         window.onkeydown = moveHero;
         iwe.Canvas.onclick = canvasClick;
         
-        var MENU = {
-            upButton: {
-                x: 5,
-                y: 5,
-                spriteId: 4
-            }
-        };
         var HERO = {
             x: 1,
             y: 1,
             w: 30,
             h: 30,
-            spriteId: 2,
+            spriteId: 1,
             offset: {x: 15, y: -40}
         };
 
@@ -170,8 +163,8 @@ Each line should be prefixed with
             redraw();
         }
         function pushMenu(){
-            iwe.DRAW.image(iwe.images[4], 50, 30);
-            iwe.DRAW.image(iwe.images[5], 50, 81);
+            iwe.DRAW.image(iwe.images[3], 50, 30);
+            iwe.DRAW.image(iwe.images[4], 50, 81);
         }
         pushMenu();
         redraw();
