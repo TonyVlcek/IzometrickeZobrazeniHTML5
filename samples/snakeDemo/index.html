@@ -5,7 +5,7 @@ Each line should be prefixed with
 -->
 <html>
     <head>
-        <title>isoSnake</title>
+        <title>IsoSnake</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <script type="text/javascript" src="../../iwe.js"></script>
@@ -69,24 +69,9 @@ Each line should be prefixed with
                     this.walkable = false;
                 }
             };
-            window.onload = function (){
-                iwe.fillModel(map, tiles);
-            /*iwe.Tiles.t0 ={
-                spriteId: 0,
-                offset: {x: 0, y: 0},
-                walkable: true
-            };
-            iwe.Tiles.t1 = {
-                spriteId: 1,
-                offset: {x: 0, y: 0}, //y: 15
-                walkable: false
-            };
-            iwe.Tiles.t2 = {
-                spriteId: 15,
-                offset: {x: -7, y: 25},
-                walkable: true
-            };*/
-                   
+        window.onload = function (){
+            iwe.fillModel(map, tiles);
+                
             var SNAKE = {
                 body: [],
                 speed: 250, //ms on one tile
@@ -137,7 +122,7 @@ Each line should be prefixed with
                         if(segment.direction === 'down'){segment.spriteId = 7;}
                         if(segment.direction === 'up'){segment.spriteId = 8;}
                         if(segment.direction === 'left'){segment.spriteId = 9;}
-                        if(SNAKE.body[i+1].x != SNAKE.body[i-1].x  && SNAKE.body[i+1].y != SNAKE.body[i-1].y){ //angle segment
+                        if(SNAKE.body[i+1].x !== SNAKE.body[i-1].x  && SNAKE.body[i+1].y !== SNAKE.body[i-1].y){ //angle segment
                             segment.spriteId = 16;
                         }
                     }
@@ -244,17 +229,18 @@ Each line should be prefixed with
             }
             
             SNAKE.body = [
-             new cSegment(1,3,10),
-             new cSegment(2,3,6),
-             new cSegment(3,3,6),
-             new cSegment(4,3,6),
-             new cSegment(5,3,6),
-             new cSegment(6,3,2,'right')
-             ];
-             head = SNAKE.body[SNAKE.body.length-1];
-             tail = SNAKE.body[0];
+                new cSegment(1,3,10),
+                new cSegment(2,3,6),
+                new cSegment(3,3,6),
+                new cSegment(4,3,6),
+                new cSegment(5,3,6),
+                new cSegment(6,3,2,'right')
+            ];
+            
+            head = SNAKE.body[SNAKE.body.length-1];
+            tail = SNAKE.body[0];
    
-         var interval = setInterval(function(){
+            var interval = setInterval(function(){
                 draw();
                 console.log(head.direction+'; '+SNAKE.body[1].x);
             }, SNAKE.speed);
