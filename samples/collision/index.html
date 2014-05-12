@@ -19,7 +19,7 @@ Each line should be prefixed with
        startAt: {x: 300, y: 100},
        fullScreen: true
     });
-    iwe.loadImages('./images/', ['grass.png','unwalkable.png','hero.png']);
+    iwe.loadImages('./images/', ['grass.png','unwalkable.png','hero.png', 'hero_burning.png']);
     var map = [
                     [0,0,0,0,0,0,0,0,0,0],
                     [0,1,1,0,0,0,0,0,0,0],
@@ -50,6 +50,8 @@ Each line should be prefixed with
                 this.walkable = false;
         }
     };   
+    var burnable = false;
+    
     window.onload = function launch(){
         iwe.fillModel(map, tiles);
         function redraw(){
@@ -73,22 +75,28 @@ Each line should be prefixed with
         }
         function collision (x,y){
             if(!iwe.getTile(x,y).walkable){
-                console.log('Collision on '+x+':'+y);
+                if(!burnable){
+                    alert('Collision on '+x+':'+y);
+                } else {
+                    HERO.spriteId = 3;
+                }
                 return false;
             }else{
+                HERO.spriteId = 2;
                 return true;
             }
         }
         function moveHero(e){
             if (e.keyCode === 38) {         //up
-                if(collision(HERO.x,HERO.y-1)){HERO.y --;}
+                HERO.y --;
             } else if (e.keyCode === 40) { //down
-                if(collision(HERO.x,HERO.y+1)){HERO.y ++;}
+                HERO.y ++;
             } else if (e.keyCode === 37) { //left
-                if(collision(HERO.x-1,HERO.y)){HERO.x --;}
+                HERO.x --;
             } else if (e.keyCode === 39) { //right
-                if(collision(HERO.x+1,HERO.y)){HERO.x ++;}
+                HERO.x ++;
             }
+            collision(HERO.x,HERO.y);
             redraw();
         }
         
