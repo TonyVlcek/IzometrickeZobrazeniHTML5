@@ -106,7 +106,9 @@ var iwe = (function () {
             document.body.style.overflow = "hidden";
             iwe.Canvas.height = window.innerHeight;
             iwe.Canvas.width = window.innerWidth;
-            iwe.Canvas.style = 'border: 0;';
+            iwe.Canvas.style = 'position: absolute; \n\
+                                top: 0; left: 0; \n\
+                                width: 100%; height: 100%; ';
             window.scrollTo(0, 1);
        },
        fillModel: function (map, tiles){
