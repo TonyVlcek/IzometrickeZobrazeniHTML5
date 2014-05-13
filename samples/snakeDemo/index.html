@@ -11,16 +11,13 @@ Each line should be prefixed with
         <script type="text/javascript" src="../../iwe.js"></script>
     </head>
     <body>
-        <center> 
-        <canvas id="c" width="1140" height="740" style="border: 2px solid orange;">Váš prohlížeč bohužel tuto technologii nepodporuje, porsím aktualizujte jej</canvas>
-        <!--<br>Points: <input type="text" id="score" size="2">-->
-        </center>
+        <canvas id="c" width="600" height="380">Váš prohlížeč bohužel tuto technologii nepodporuje, porsím aktualizujte jej</canvas>
         <script type="text/javascript">
             iwe.INIT({
                  canvas: 'c',
-                 startAt: {x: 600, y: 15},
+                 startAt: {x: 280, y: 15},
                  tile: {width: 52, height: 30},
-                 fullScreen: true
+                 fullScreen: false
             });
             iwe.loadImages('./images/', [  'grass.png','rocks.png', //0,1
                                             'head_right.png','head_down.png','head_up.png','head_left.png',//2,3,4,5
@@ -29,27 +26,18 @@ Each line should be prefixed with
                                             'apple.png','apple2.png','angle.png' //14,15,16
                                          ]);
             var map = [ //20x20
-                        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 
+                        [1,1,1,1,1,1,1,1,1,1,1,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,0,0,0,0,0,0,0,0,0,0,1],
+                        [1,1,1,1,1,1,1,1,1,1,1,1]
                      ]; 
             var tiles = {
                 t0: function (x,y){
@@ -198,7 +186,7 @@ Each line should be prefixed with
                 }
                 if (!iwe.getTile(head.x,head.y).walkable){
                     clearInterval(interval);
-                    alert("--GAME OVER--\nYou crashed into the wall!\n\nFinal score: "+SNAKE.points);
+                    //alert("--GAME OVER--\nYou crashed into the wall!\n\nFinal score: "+SNAKE.points);
                 }
                 for(var i = 0; i <= SNAKE.body.length-2; i++){
                         if(head.x === SNAKE.body[i].x && head.y === SNAKE.body[i].y){

@@ -11,13 +11,13 @@ Each line should be prefixed with
         <script type="text/javascript" src="../../iwe.js"></script>
     </head>
     <body>
-        <canvas id="main"></canvas>
+        <canvas id="main" width="600" height="380"></canvas>
         <script type="text/javascript">
     iwe.INIT({
        canvas: 'main',
        tile: {width: 52, height: 30}, 
        startAt: {x: 500, y: 100},
-       fullScreen: true
+       fullScreen: false
     });
     iwe.loadImages('./images/', [   'block.png','hero.png','highlite.png',
                                     'menu_1.png','menu_2.png'
