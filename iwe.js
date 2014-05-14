@@ -94,7 +94,19 @@ var iwe = (function () {
        },
        CLEAR: function(){
             iwe.Canvas.ctx.clearRect(0,0,iwe.Canvas.width,iwe.Canvas.height);
-       },    
+       },
+       EXPORT: function(){
+           /*
+            * EXPORT FUNCTION
+            * The result (XML or JSON) will be returned -> usage is up to user
+            */
+       },
+       IMPORT: function(source) {
+           /*
+           * IMPORT FUNCTION
+           * It will set iwe.Model to the correct structure and reread the scene
+           */
+       },
        getTile: function(x,y){
            return iwe.Model[x][y];
        },
