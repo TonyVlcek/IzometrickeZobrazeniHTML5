@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Izometrcké zobrazení v HTML5</title>
+    <!-- Stylesheets -->
+    <link  href="css/stylesheet.css" rel="stylesheet" type="text/css">
+    <!-- Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="js/fathom.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var fathom = $('#presentation').fathom({
+                onActivateSlide: function() {
+                    var $slide = $(this);
+                    $slide.find('pre:first').focus();
+                },
+                dysplayMode: 'multi'
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="presentation">
+
+    <div class="slide">
+        <h1>My Presentation</h1>
+    </div>
+
+    <div class="slide">
+        <h2>My Dot Points</h2>
+        <ul>
+            <li>First dot point</li>
+            <li>Second dot point</li>
+            <li>Third dot point</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <iframe src="../samples/mapBuilder/index.html" style="width: 100%; height: 100%;"></iframe>
+    </div>
+
+    <div class="slide">
+        <iframe src="../samples/collision/index.html" style="width: 100%; height: 100%;"></iframe>
+    </div>
+
+    <div class="slide">
+        <iframe src="../samples/snakeDemo/index.html" style="width: 100%; height: 100%;"></iframe>
+    </div>
+
+</div>
+
+</body>
+</html>
