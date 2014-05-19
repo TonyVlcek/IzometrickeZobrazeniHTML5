@@ -1,5 +1,5 @@
-/* 
- .----------------.  .----------------.  .----------------. 
+/*
+ .----------------.  .----------------.  .----------------.
 | .--------------. || .--------------. || .--------------. |
 | |     _____    | || | _____  _____ | || |  _________   | |
 | |    |_   _|   | || ||_   _||_   _|| || | |_   ___  |  | |
@@ -9,17 +9,17 @@
 | |    |_____|   | || |  |__/  \__|  | || | |_________|  | |
 | |              | || |              | || |              | |
 | '--------------' || '--------------' || '--------------' |
- '----------------'  '----------------'  '----------------' 
+ '----------------'  '----------------'  '----------------'
 
 LicenceApache 2.0
 Antonín Vlček
-Gymnázium Brno-Řečkovice 
+Gymnázium Brno-Řečkovice
 RedHat | JCMM | JMK
 */
 var iwe = (function () {
     /*private variables*/
     var imagesLoaded = false;
-    var isVisibleOffset = 50; //only for betatesting 
+    var isVisibleOffset = 50; //only for betatesting
     /*functions*/
     function $(id) {
         return document.getElementById(id);
@@ -49,7 +49,7 @@ var iwe = (function () {
         loadImages: function (imagesDir, array) {
             var images, remaining = array.length, i;
             for (i = 0; i < array.length; i++){
-                iwe.images[i] = new Image(); 
+                iwe.images[i] = new Image();
                 iwe.images[i].src = imagesDir+array[i];
                 remaining --;
                 imagesLoaded = remaining === 0 ? true : false;
@@ -57,7 +57,7 @@ var iwe = (function () {
         },
         TRANSFORM: {
             toIso: function (x,y){
-                var isoX = ((x-y)* (iwe.tile.width/2))+iwe.Map.offset.x; 
+                var isoX = ((x-y)* (iwe.tile.width/2))+iwe.Map.offset.x;
                 var isoY = (((x+y))*(iwe.tile.height/2))+iwe.Map.offset.y;
                 return {x: isoX, y: isoY};
             },
@@ -72,7 +72,7 @@ var iwe = (function () {
        DRAW: {
            image: function (url,x,y){
                 if(iwe.isVisible(x,y)){
-                    iwe.Canvas.ctx.drawImage(url, x, y);  
+                    iwe.Canvas.ctx.drawImage(url, x, y);
                     return true;
                 }else {
                     return false;
@@ -86,7 +86,7 @@ var iwe = (function () {
            },
            all: function (){
                 for(var i=0; i < iwe.Model.length; i++){
-                    for(var j=0; j < iwe.Model[i].length; j++){ 
+                    for(var j=0; j < iwe.Model[i].length; j++){
                         iwe.DRAW.tile(iwe.Model[i][j]);
                     }
                 }
@@ -100,12 +100,14 @@ var iwe = (function () {
             * EXPORT FUNCTION
             * The result (XML or JSON) will be returned -> usage is up to user
             */
+           return JSON.stringify(iwe.Model);
        },
        IMPORT: function(source) {
            /*
            * IMPORT FUNCTION
            * It will set iwe.Model to the correct structure and reread the scene
            */
+           iwe.Model = JSON.parse(source);
        },
        getTile: function(x,y){
            return iwe.Model[x][y];
@@ -130,7 +132,7 @@ var iwe = (function () {
                     var tile = new tiles['t'+map[i][j]](i,j);
                     iwe.Model[i].push(tile);
                 }
-            }  
+            }
        },
        INIT: function(init) {
             iwe.Canvas = $(init.canvas);
@@ -139,7 +141,7 @@ var iwe = (function () {
             iwe.tile.width = init.tile.width;
             iwe.tile.height = init.tile.height;
             iwe.Map.offset = init.startAt;
-            //iwe.loadMap (init.map,init.startMapAt.x, init.startMapAt.y);  
+            //iwe.loadMap (init.map,init.startMapAt.x, init.startMapAt.y);
             if(init.fullScreen){
                 iwe.fullScreen();
             }
@@ -147,8 +149,3 @@ var iwe = (function () {
    };
     return iwe;
 }());
-
-
-
-
-
