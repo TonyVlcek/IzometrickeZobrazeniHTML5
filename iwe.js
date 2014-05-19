@@ -16,6 +16,13 @@ Antonín Vlček
 Gymnázium Brno-Řečkovice
 RedHat | JCMM | JMK
 */
+
+// function iwe (){} var a = new iwe();
+//TODO [first]: iwe => this - better construction
+//TODO [second]: napsat si getter na buňku => všude, kde se dotazuji na určitou buňku v poli se bude volat getter
+//TODO [third]: plnění modelu nechat na uživateli => metoda fillModel půjde pryč z enginu
+//TODO [fourth]: fillModel rozdělím na dvě -> jedna bude obsahovat cykly a druhá tu akci uvnitř (ta bude později callbackem) a poté vrátim vnější funkci zpět do enginu
+
 var iwe = (function () {
     /*private variables*/
     var imagesLoaded = false;
@@ -87,7 +94,7 @@ var iwe = (function () {
            all: function (){
                 for(var i=0; i < iwe.Model.length; i++){
                     for(var j=0; j < iwe.Model[i].length; j++){
-                        iwe.DRAW.tile(iwe.Model[i][j]);
+                        iwe.DRAW.tile(iwe.Model[i][j]); //TODO: here will be called a callback from user, which will be initialized in World class
                     }
                 }
             }
