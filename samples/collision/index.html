@@ -12,12 +12,14 @@ Each line should be prefixed with
     </head>
     <body>
         <canvas id="main"></canvas>
+        <canvas id="two"></canvas>
         <script type="text/javascript">
+    var iwe = new Iwe();
     iwe.INIT({
        canvas: 'main',
        tile: {width: 52, height: 30}, 
        startAt: {x: 300, y: 100},
-       fullScreen: true
+       fullScreen: false
     });
     iwe.loadImages('./images/', ['grass.png','unwalkable.png','hero.png', 'hero_burning.png']);
     var map = [
@@ -51,7 +53,7 @@ Each line should be prefixed with
         }
     };   
     var burnable = false;
-    
+
     window.onload = function launch(){
         iwe.fillModel(map, tiles);
         function redraw(){
