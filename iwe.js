@@ -89,10 +89,15 @@ function Iwe(){
              isoCoor.y -= tile.offsetY;
              that.DRAW.image(that.images[tile.spriteId], isoCoor.x, isoCoor.y);
         },
-        all: function (){
-             for(var i=0; i < that.Model.length; i++){
-                 for(var j=0; j < that.Model[i].length; j++){
-                     that.DRAW.tile(that.Model[i][j]); //TODO: here will be called a callback from user, which will be initialized in World class
+        all: function (callback){
+             for(var y=0; y < that.Model.length; y++){
+                 for(var x=0; x < that.Model[y].length; x++){
+                     if (typeof(callback) == "function"){
+                         callback(x,y);
+                     }
+                     else {
+                         that.DRAW.tile(that.Model[y][x]); //TODO: here will be called a callback from user, which will be initialized in World class
+                     }
                  }
              }
          }

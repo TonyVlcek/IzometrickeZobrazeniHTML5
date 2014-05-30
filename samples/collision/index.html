@@ -12,14 +12,13 @@ Each line should be prefixed with
     </head>
     <body>
         <canvas id="main"></canvas>
-        <canvas id="two"></canvas>
         <script type="text/javascript">
     var iwe = new Iwe();
     iwe.INIT({
        canvas: 'main',
        tile: {width: 52, height: 30}, 
        startAt: {x: 300, y: 100},
-       fullScreen: false
+       fullScreen: true
     });
     iwe.loadImages('./images/', ['grass.png','unwalkable.png','hero.png', 'hero_burning.png']);
     var map = [
@@ -58,15 +57,18 @@ Each line should be prefixed with
         iwe.fillModel(map, tiles);
         function redraw(){
             iwe.CLEAR();
-            iwe.DRAW.all();
-            pushHero();
+            iwe.DRAW.all(function(x,y){
+                iwe.DRAW.tile(iwe.getTile(y,x));
+                pushHero();
+            });
         }
         
         var HERO = {
             x: 0,
             y: 0,
             spriteId: 2,
-            offset: {x: 15, y: -40}
+            offset: {x: 15, y: -40},
+            burnSound: new Audio("./sounds/ow.mp3")
         };
 
         function pushHero(){
@@ -81,6 +83,7 @@ Each line should be prefixed with
                     alert('Collision on '+x+':'+y);
                 } else {
                     HERO.spriteId = 3;
+                    HERO.burnSound.play();
                 }
                 return false;
             }else{
