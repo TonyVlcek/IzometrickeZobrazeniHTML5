@@ -72,13 +72,14 @@ Each line should be prefixed with
             };
         window.onload = function (){
             iwe.fillModel(map, tiles);
-                
+
             var SNAKE = {
                 body: [],
                 speed: 250, //ms on one tile
                 moving: false,
                 points: 0,
-                eatSound: new Audio("./sounds/eat.mp3")
+                eatSound: new Audio("./sounds/eat.mp3"),
+                paused: true
                 
             };
             var FOOD = { //first piece will look like this
@@ -100,8 +101,7 @@ Each line should be prefixed with
             } 
             
             var head = null;
-            var tail = null;
-            
+
             function pushSnake (){
                 for(var i = 0; i <= SNAKE.body.length-1; i++){
                     var segment = SNAKE.body[i];
@@ -129,14 +129,12 @@ Each line should be prefixed with
                     }
                     iwe.DRAW.image(iwe.images[segment.spriteId],coor.x,coor.y);
                 }
-                console.log(SNAKE.body);
             }
             function pushFood (){
                 var coor = iwe.TRANSFORM.toIso(FOOD.x, FOOD.y);
                 coor.x += FOOD.offset.x;
                 coor.y += FOOD.offset.y;
-                iwe.DRAW.image(iwe.images[FOOD.spriteId],coor.x,coor.y); 
-                console.log(iwe.images[FOOD.spriteId]);
+                iwe.DRAW.image(iwe.images[FOOD.spriteId],coor.x,coor.y);
             }
             function newFood (){
                 FOOD.x = Math.floor(Math.random() * (iwe.Model.length-3)) + 1;
@@ -169,8 +167,21 @@ Each line should be prefixed with
                                 head.direction = "right";
                             }
                         }
+                        if(e.keyCode === 80) { //P - pause
+                            if(SNAKE.paused){
+                                start();
+                                SNAKE.paused = false;
+                            }else{
+                                stop();
+                                SNAKE.paused = true;
+                            }
+
+                        }
+                        if(e.keyCode === 79) {
+                            start();
+                        }
                 };
-                
+
             function moveSnake(){
                 for(var i = 0; i <= SNAKE.body.length-2; i++){
                     SNAKE.body[i].x = SNAKE.body[i+1].x;
@@ -198,13 +209,13 @@ Each line should be prefixed with
                   head.offset.y = -30;
                 }
                 if (!iwe.getTile(head.x,head.y).walkable){
-                    clearInterval(interval);
+                    stop();
                     alert("--GAME OVER--\nYou crashed into the wall!\n\nFinal score: "+SNAKE.points);
                 }
                 for(var i = 0; i <= SNAKE.body.length-2; i++){
                         if(head.x === SNAKE.body[i].x && head.y === SNAKE.body[i].y){
+                          stop();
                           alert("--GAME OVER--\nYou crashed into your own tail!\n\nFinal score: "+SNAKE.points);
-                            clearInterval(interval);
                         }
                 }
                 if(head.x === FOOD.x && head.y === FOOD.y){ //snake swoloved an apple
@@ -239,12 +250,20 @@ Each line should be prefixed with
             ];
             
             head = SNAKE.body[SNAKE.body.length-1];
-            tail = SNAKE.body[0];
-   
-            var interval = setInterval(function(){
+
+            var timer = 0;
+            function stop() {
+                clearInterval(timer);
+            }
+
+            function start() {
+               timer = setInterval(iterator, SNAKE.speed);
+            }
+
+            function iterator() {
                 draw();
-                console.log(head.direction+'; '+SNAKE.body[1].x);
-            }, SNAKE.speed);
+                //console.log(head.direction+'; '+SNAKE.body[1].x);
+            }
     };
         </script>
     </body>
