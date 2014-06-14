@@ -9,55 +9,73 @@ Each line should be prefixed with
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <script type="text/javascript" src="../../iwe.js"></script>
+        <style>
+            #startDiv {
+                position: absolute;
+                top: 100px; left: 200px;
+                width: 300px; height: 200px;
+                background: #3179CB;
+                color: #ffffff;
+                font-family: Verdana;
+                font-size: 50px;
+                font-weight: bold;
+                text-align: center;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
-        <canvas id="c" width="600" height="380">Váš prohlížeč bohužel tuto technologii nepodporuje, porsím aktualizujte jej</canvas>
+        <div id="startDiv" onClick="startGame(); this.style.display = 'none';">
+            <br>START
+        </div>
+        <canvas id="c" width="650" height="400">Váš prohlížeč bohužel tuto technologii nepodporuje, porsím aktualizujte jej</canvas>
         <script type="text/javascript">
-            iwe.INIT({
-                 canvas: 'c',
-                 startAt: {x: 280, y: 15},
-                 tile: {width: 52, height: 30},
-                 fullScreen: false
-            });
-            iwe.loadImages('./images/', [  'grass.png','rocks.png', //0,1
-                                            'head_right.png','head_down.png','head_up.png','head_left.png',//2,3,4,5
-                                            'segment_right.png','segment_down.png','segment_left.png','segment_left.png',//6,7,8,9
-                                            'tile_right.png','tile_down.png','tile_up.png','tile_left.png', //10,11,12,13
-                                            'apple.png','apple2.png','angle.png' //14,15,16
-                                         ]);
-            var map = [ //20x20
-                        [1,1,1,1,1,1,1,1,1,1,1,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,0,0,0,0,0,0,0,0,0,0,1],
-                        [1,1,1,1,1,1,1,1,1,1,1,1]
-                     ]; 
-            var tiles = {
-                t0: function (x,y){
-                    this.x = x;
-                    this.y = y;
-                    this.offsetX = 0;
-                    this.offsetY = 0;
-                    this.spriteId = 0;
-                    this.walkable = true;
-                }, 
-                t1: function (x,y){
-                    this.x = x;
-                    this.y = y;
-                    this.offsetX = 0;
-                    this.offsetY = 0;
-                    this.spriteId = 1;
-                    this.walkable = false;
-                }
-            };
-        window.onload = function (){
+        iwe.INIT({
+            canvas: 'c',
+            startAt: {x: 290, y: 15},
+            tile: {width: 52, height: 30},
+            fullScreen: false
+        });
+        iwe.loadImages('./images/', [  'grass.png','rocks.png', //0,1
+            'head_right.png','head_down.png','head_up.png','head_left.png',//2,3,4,5
+            'segment_right.png','segment_down.png','segment_left.png','segment_left.png',//6,7,8,9
+            'tile_right.png','tile_down.png','tile_up.png','tile_left.png', //10,11,12,13
+            'apple.png','apple2.png','angle.png' //14,15,16
+        ]);
+        var map = [ //20x20
+            [1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1]
+        ];
+        var tiles = {
+            t0: function (x,y){
+                this.x = x;
+                this.y = y;
+                this.offsetX = 0;
+                this.offsetY = 0;
+                this.spriteId = 0;
+                this.walkable = true;
+            },
+            t1: function (x,y){
+                this.x = x;
+                this.y = y;
+                this.offsetX = 0;
+                this.offsetY = 0;
+                this.spriteId = 1;
+                this.walkable = false;
+            }
+        };
+        function startGame() {
+
             iwe.fillModel(map, tiles);
                 
             var SNAKE = {
@@ -186,12 +204,14 @@ Each line should be prefixed with
                 }
                 if (!iwe.getTile(head.x,head.y).walkable){
                     clearInterval(interval);
-                    //alert("--GAME OVER--\nYou crashed into the wall!\n\nFinal score: "+SNAKE.points);
+                    alert("--GAME OVER--\nYou crashed into the wall!\n\nFinal score: "+SNAKE.points);
+                    document.getElementById('startDiv').style.display = "";
                 }
                 for(var i = 0; i <= SNAKE.body.length-2; i++){
                         if(head.x === SNAKE.body[i].x && head.y === SNAKE.body[i].y){
                           alert("--GAME OVER--\nYou crashed into your own tail!\n\nFinal score: "+SNAKE.points);
                             clearInterval(interval);
+                            document.getElementById('startDiv').style.display = "";
                         }
                 }
                 if(head.x === FOOD.x && head.y === FOOD.y){ //snake swoloved an apple
@@ -232,7 +252,7 @@ Each line should be prefixed with
                 draw();
                 console.log(head.direction+'; '+SNAKE.body[1].x);
             }, SNAKE.speed);
-    };
+        }
         </script>
     </body>
 </html>

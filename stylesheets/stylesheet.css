@@ -71,6 +71,13 @@ header {
   border-bottom: solid 1px #275da1;
 }
 
+nav {
+    background: #aaa;
+    color: white;
+    font-size: 1.5em;
+    text-align: left;
+}
+
 header h1 {
   letter-spacing: -1px;
   font-size: 72px;
@@ -185,7 +192,7 @@ pre code {
 }
 
 ul, ol, dl {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 
@@ -381,6 +388,29 @@ footer a:hover {
 .clicker:hover {
     text-decoration: underline;
 }
+
+.sampleBox {
+    width: 688px;
+    border: 1px solid #3179CB;
+    height: 420px;
+    overflow: hidden;
+}
+
+.detail a[name] {
+    background: #3179CB;
+    color: white;
+    display: block;
+    width: 100%;
+    font-size: 2em;
+    text-decoration: none;
+    padding: 0 0 0 15px;
+    margin-left: -15px;
+}
+
+.detail strong {
+    font-weight: bold;
+}
+
 
 /* #Media Queries
 ================================================== */

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <title>Izometrickezobrazenihtml5 by TonnyVlcek</title>
@@ -22,18 +22,22 @@
         <h1>IWE HTML5</h1>
         <h2>Jednoduchý engin pro práci s izometrickým prostředím. <br>Vypracováno v rámci <a href="http://soc.cz" style="color: white;">SOČ 2014</a>.</h2>
         <a href="https://github.com/TonnyVlcek/IzometrickeZobrazeniHTML5" class="button"><small>View project on</small>GitHub</a>
-        <a href="https://github.com/TonnyVlcek/IzometrickeZobrazeniHTML5" class="button" style="margin-top: 90px;"><small>View project on</small>GitHub</a>
       </div>
     </header>
+    <nav>
+        <div class="inner">
+            <a href="#anotace">Anotace</a> | <a href="#samples">Praktické ukázky</a> | <a href="#documentation">Dokumentace (en)</a> | <a href="#download">Ke stažení</a> | <a href="#links">Odkazy</a>
+        </div>
+    </nav>
 
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-            <section id="anotace">
+            <section id="anotace"><a name="anotace"></a>
             <div id="annotation-cz">
-                <h2><a class="anchor" href="#anotace-cz" name="anotace-cz">Anotace</a>
+                <h1><a class="anchor" href="#anotace-cz" name="anotace-cz">Anotace</a>
                     (<span class="clicker" onClick="document.getElementById('annotation-en').style.display=''; document.getElementById('annotation-cz').style.display='none';">English version</span>)
-                </h2>
+                </h1>
                 <p>
                     Tato práce se věnuje problematice vytvoření JavaScriptového enginu pro izometrické zobrazení. V první části práce je stručně objasněn princip izometrické projekce a jsou zde
                 popsány technologie, pomocí kterých je možné tohoto cíle dosáhnout. Další část je věnována popisu vývoje enginu a ukázce jeho využití v praxi na příkladu známé hry Snake.
@@ -41,9 +45,9 @@
                 </p>
             </div>
             <div id="annotation-en" style="display: none;">
-                <h2><a class="anchor" href="#anotace-en" name="anotace-en">Annotation</a>
+                <h1><a class="anchor" href="#anotace-en" name="anotace-en">Annotation</a>
                     (<span class="clicker" onClick="document.getElementById('annotation-cz').style.display=''; document.getElementById('annotation-en').style.display='none';">Česká verze</span>)
-                </h2>
+                </h1>
                 <p>
                     This thesis is dedicated to the topic of isometric view JavaScript engine creation. Its first part consists of a brief explanation of the isometric projection basics and a decription
                     of technologies used to accomplish this task. The following part describes the engine development process and provides a demonstration of its utilization for creation of the well-known
@@ -53,7 +57,7 @@
             </div>
             </section>
             <section>
-                <h1>Praktické ukázky</h1>
+                <a name="samples"></a><h1>Praktické ukázky</h1>
                 <p>
                     Následují tři ejdnoduché ukázky, které jsou seřazeny podle postupu vývoje (dlaždicové) hry. Postupem času budou ukázky přibývat, pokud sami využíváte tento engin a máte něco zajímavého,
                 nebo by se vám nějaká ukázka líbila, ale zatím tu není, tak určitě napište (email, issue na github, atp..).
@@ -62,21 +66,294 @@
                 <p>
                     Základem každé hry je postředí, do kterého je později zasazen děj a postavy. Tato ukázka demonstruje jednoduchý mapBuilder.
                 <p>
-                <iframe src="samples/mapBuilder/index.html" style="width: 100%; height: 400px; border: 1px solid #3179CB">Not working</iframe>
+                <iframe src="samples/mapBuilder/index.html" class="sampleBox">Not working</iframe>
                 <h2>Kolize</h2>
                 <p>
                     Ve chvíli, kdy již máme připravené prostředí, je další nezbytnou funkcí pro vytváření herní logiky schopnost detekovat kolize s určitými objekty.
                     Tato ukázka demonstruje, jak je toho možné dosáhnout za pomoci tohoto enginu.
                 </p>
-                <iframe src="samples/collision/index.html" style="width: 100%; height: 400px; border: 1px solid #3179CB">Not working</iframe>
+                <iframe src="samples/collision/index.html" class="sampleBox">Not working</iframe>
                 <h2>Snake</h2>
                 <p>
                     Už jen schopnost vytvořit prostředí a detekovat kolize nám otevírá spoustu možností pro tvorbu složitější herní logiky. Toto reprezentuje následující ukázka:
                 </p>
-                <iframe src="samples/snakeDemo/index.html" style="width: 100%; height: 400px; border: 1px solid #3179CB">Not working</iframe>
+                <iframe src="samples/snakeDemo/index.html" class="sampleBox">Not working</iframe>
             </section>
             <section>
-                <h1>Ke stažení</h1>
+                <a name="documentation"></a><h1>Documentation</h1>
+                <div class="doc">
+                    <div id="list">
+                        <ul>
+                            <li><a href="#iwe">iwe</a></li>
+                            <ul>
+                                <li><a href="#init">INIT()</a></li>
+                                <li><a href="#canvas">Canvas</a></li>
+                                <li><a href="#map">Map</a></li>
+                                <li><a href="#model">Model</a></li>
+                                <li><a href="#fillModel">fillModel()</a></li>
+                                <li><a href="#tile">tile</a></li>
+                                <li><a href="#getTile">getTile()</a></li>
+                                <li><a href="#isVisible">isVisible()</a></li>
+                                <li><a href="#transform">TRANSFORM</a></li>
+                                    <ul>
+                                        <li><a href="#toIso">toIso()</a></li>
+                                        <li><a href="#toModel">toModel()</a></li>
+                                    </ul>
+                                <li><a href="#draw">DRAW</a></li>
+                                <ul>
+                                    <li><a href="#draw.image">image()</a></li>
+                                    <li><a href="#draw.tile">tile()</a></li>
+                                    <li><a href="#draw.all">all()</a></li>
+                                </ul>
+                                <li><a href="#images">images[]</a></li>
+                                <li><a href="#loadImages">loadImages()</a></li>
+                                <li><a href="#fullScreen">fullScreen()</a></li>
+                                <li><a href="#clear">CLEAR()</a></li>
+                            </ul>
+                        </ul>
+                    </div>
+                    <div id="details">
+                        <div class="detail">
+                            <a name="iwe">iwe</a>
+                            <strong>Type:</strong> object<br>
+                            <strong>Description:</strong><br>
+                                <p> This is the main object which wraps whole content of this engine. Every other methods,
+                                    which I'll be talking about here are parameters of this object which means that they're accessible by dot notation.
+                                    For example: <code>iwe.INIT();</code>
+                                </p>
+                            <strong>Note:</strong><br>
+                                <p>In the next stable version (v2.0) this structure will be changed and this object will be replaced by construction function.
+                                It will allows you to create more than one instance on one page. If you want to use it right now, you can checkout the
+                                    HEAD commit of branch oop-refactoring
+                                </p>
+                        </div>
+                        <div class="detail">
+                            <a name="init">INIT()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> {canvas: "string", tile: {width: int, height: int},
+                                                    startAt:{x: int, y: int}, [fullScreen: boolean]} <br>
+                            <strong>OUT:</strong> --- <br>
+                            <strong>Description:</strong><br>
+                            <p> This is the initialization method which you will use on the beginning of every file. The default value for the <code>fullScreen</code> is false.
+                            </p>
+
+                            <strong>Example:</strong><br>
+<pre>
+   iwe.INIT({
+     canvas: 'main',
+     tile: {width: 52, height: 30},
+     startAt: {x: 250, y: 15},
+     fullScreen: true
+    });
+</pre>
+                        </div>
+                        <div class="detail">
+                            <a name="canvas">Canvas</a>
+                            <strong>Type:</strong> object<br>
+                            <strong>Description:</strong><br>
+                                <p>Based on what you insert to the canvas parameter inside <code>INIT({canvas: "(canvas-id)"})</code>.
+                                    This object represents the original canvas element form DOM. It's basically the same as
+                                    when you write <code>document.getElementById("canvas-id")</code>. That means you can use it the same way
+                                    and also change the canvas parameters.
+                                </p>
+                            <strong>Sample:</strong><br>
+<pre>
+iwe.Canvas.height = 500;
+iwe.Canvas.width = 1000;
+iwe.Canvas.style = 'border: 2px solid red; cursor: pointer';
+//and so on ...
+</pre>
+                        </div>
+                        <div class="detail">
+                            <a name="map">Map</a>
+                            <strong>Type:</strong> object<br>
+                            <strong>Description:</strong><br>
+                                <p>This object includes another object offset with parameters x (int) and y (int). When you change one this parameters
+                                the map will be shifted in the next redraw iteration.</p>
+                            <strong>Sample:</strong><br>
+<pre>
+function mapShift(e){
+    isDraged = true;
+    var coor = getMouseCoor(e);
+    iwe.Map.offset.x -= mouse_x - coor.x;
+    iwe.Map.offset.y -= mouse_y - coor.y;
+    mouse_x = coor.x;
+    mouse_y = coor.y;
+    redraw();
+}
+</pre>
+                            <strong>Note:</strong>
+                                <p>I know that it's a bit weird and i'm going to change it.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="model">Model</a>
+                            <strong>Type:</strong> array<br>
+                            <strong>Description:</strong><br>
+                            <p>Using the <code>iwe.fillModel()</code> method will be this array filled with instances of object
+                                whose constructors you will pas in tile parameter of the <code>iwe.fillModel()</code> method.
+                            </p>
+                        </div>
+                        <div class="detail">
+                            <a name="fillModel">fillModel()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> [[number of construction function], [...]], {t[number of construction function], t[...]} <br>
+                            <strong>Description:</strong><br>
+                            <p>On the input it expects 2D array, which contains the number referring to the construction function as the first parameter.
+                            On the secound place there will be an array</p>
+                            <strong>Sample:</strong><br>
+<pre>
+function mapShift(e){
+    isDraged = true;
+    var coor = getMouseCoor(e);
+    iwe.Map.offset.x -= mouse_x - coor.x;
+    iwe.Map.offset.y -= mouse_y - coor.y;
+    mouse_x = coor.x;
+    mouse_y = coor.y;
+    redraw();
+}
+</pre>
+                        </div>
+                        <div class="detail">
+                            <a name="tile">tile</a>
+                            <strong>Type:</strong> object<br>
+                            <strong>Description:</strong><br>
+                            <p>This object has two parameters x (int) and y (int). These parameters influenced the isometric transformation
+                            The value of these parameters you can set inside of <code>iwe.INIT()</code> or directly <code>iwe.tile.x = (int)</code>.
+                           </p>
+                            <strong>Note:</strong>
+                            <p>I strongly advise you to do it inside of <code>iwe.INIT()</code> - it's much clearer.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="getTile">getTile()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> x (int), y (int)<br>
+                            <strong>OUT:</strong> returns instance of the tile on this coordinates (from <code>iwe.Model</code>)<br>
+                            <strong>Description:</strong><br>
+                            <p>This method is really useful, for example when you have to get the tile which was clicked by the user.</p>
+                            <strong>Sample:</strong><br>
+<pre>
+function canvasClick(e){
+	var mouseCoor = getMouseCoor(e);
+	var coor = iwe.TRANSFORM.toModel(mouseCoor.x, mouseCoor.y);
+	var tile = iwe.getTile(coor.x, coor.y);
+	tile.offsetY += 10;
+	redraw();
+}
+</pre>
+                        </div>
+                        <div class="detail">
+                            <a name="isVisible">isVisible()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> x (int), y (int)<br>
+                            <strong>OUT:</strong> boolean<br>
+                            <strong>Description:</strong><br>
+                            <p>On the input it expects coordinates of some existing object. Based on <code>iwe.Map.offset</code> it will decide if this
+                                object is visible or not and returns the appropriate value.</p>
+                            <strong>Note:</strong>
+                            <p>It's used for example inside of the engine in <code>iwe.DRAW.image()</code> to make the canvas draw only visible sprites (objects).</p>
+                        </div>
+                        <div class="detail">
+                            <a name="transform">TRANSFORM</a>
+                            <strong>Type:</strong> object<br>
+                            <strong>Description:</strong><br>
+                            <p>This object is used just as logical cover for <code>iwe.TRANSFORM.toIso()</code> and <code>iwe.TRANSFORM.toModel()</code>.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="toIso">TRANSFORM.toIso()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> x (int), y (int)<br>
+                            <strong>OUT:</strong> {x: (int), y: (int)}<br>
+                            <strong>Description:</strong><br>
+                            <p>On the input it expects coordinates from 2D model, which are transformed to isometric coordinates and are returned as
+                                parameters x and y of the output object</p>
+                        </div>
+                        <div class="detail">
+                            <a name="toModel">TRANSFORM.toModel()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> x (int), y (int)<br>
+                            <strong>OUT:</strong> {x: (int), y: (int)}<br>
+                            <strong>Description:</strong><br>
+                            <p>On the input it expects coordinates from isometric environment, which are transformed to 2D coordinates and are returned as
+                                parameters x and y of the output object</p>
+                        </div>
+                        <div class="detail">
+                            <a name="draw">DRAW</a>
+                            <strong>Type:</strong> object<br>
+                            <strong>Description:</strong><br>
+                            <p>This object is used just as logical cover for <code>iwe.DRAW.image()</code>, <code>iwe.DRAW.tile()</code> and <code>iwe.DRAW.all()</code>.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="draw.image">DRAW.image()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> instance of Image(), x (int), y (int)<br>
+                            <strong>OUT:</strong> boolean<br>
+                            <strong>Description:</strong><br>
+                            <p>On the first place of the input it expects instance of class Image(), on the other two are 2D coordinates.<br>
+                            It is basically the same like <code>Canvas.ctx.drawImage(url, x, y)</code> with that difference, that before the object is placed to the
+                            canvas it is tested with method <code>iwe.isVisible()</code> if it is in the visible ara of canvas.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="draw.tile">DRAW.tile()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> instance of tile<br>
+                            <strong>Description:</strong><br>
+                            <p>As the one and only input it expects instance of some tile (for example form <code>iwe.Model[]</code>). <br>
+                            This method loads the coordinates of the tile, using the <code>iwe.TRANSFORM.toIso()</code> it transform them in to isometric and call
+                            <code>iwe.DRAW.image()</code> to draw the tile.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="draw.all">DRAW.all()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> nothing<br>
+                            <strong>OUT:</strong> nothing<br>
+                            <strong>Description:</strong><br>
+                            <p>This method simply go through whole <code>iwe.Model[]</code> array and call <code>iwe.DRAW.tile()</code> on every tile instance saved in this array.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="images">images[]</a>
+                            <strong>Type:</strong> array<br>
+                            <strong>Description:</strong><br>
+                            <p>Inside of this array there are stored every images you want to use in your app. All of those images are store as instances of <code>Images()</code>.
+                            This array you will use always when you want to use some preloaded images. It's filled by the <code>iwe.loadImages()</code> method.</p>
+                            <strong>Sample:</strong><br>
+<pre>
+iwe.DRAW.image(iwe.images[tile.spriteId], tile.x, tile.y);
+</pre>
+                        </div>
+                        <div class="detail">
+                            <a name="loadImages">loadImages()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> "string", array[]<br>
+                            <strong>Description:</strong><br>
+                            <p>The first parameter is a string refers to the source folder of your images. The next parameter is an array filled with stings refers to the
+                            name and extension of the image. Every images is loaded to the temporary memory and instances of the <code>Image()</code> saves in to the <code>iwe.images[]</code> array.</p>
+                            <strong>Sample: </strong>
+<pre>
+    iwe.loadImages('./images/', ['grass.png','unwalkable.png','hero.png']);
+</pre>
+                        </div>
+                        <div class="detail">
+                            <a name="fullScreen">fullScreen()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> nothing<br>
+                            <strong>OUT:</strong> nothing<br>
+                            <strong>Description:</strong><br>
+                            <p>Using this method you can make the canvas element to have the same size as the users active screen (inside of the browser). You can call this method anytime or set the fullscreen
+                            implicitly inside of the <code>iwe.INIT()</code> by setting the fullscreen parameter to true.</p>
+                        </div>
+                        <div class="detail">
+                            <a name="clear">CLEAR()</a>
+                            <strong>Type:</strong> method<br>
+                            <strong>IN:</strong> nothing<br>
+                            <strong>OUT:</strong> nothing<br>
+                            <strong>Description:</strong><br>
+                            <p>When you call this method, it will delete whole content of the canvas element. This method is useful (with <code>iwe.DRAW.all()</code>) always when you want to redraw
+                            whole scene.</p>
+                        </div>
+                    </div>
+            </section>
+            <section>
+                <a name="download"></a><h1>Ke stažení</h1>
                 <ul>
                     <li><a href="files/IWE-cele.pdf">Celá textová část práce (PDF)</a></li>
                     <li><a href="files/IWE-dokumentace.pdf">Dokumentace (PDF)</a></li>
@@ -86,7 +363,7 @@
 
             </section>
             <section>
-                <h1>Odkazy</h1>
+                <a name="links"></a><h1>Odkazy</h1>
                 <ul>
                     <li><a href="http://www.zdrojak.cz/clanky/zaciname-z-html5-canvasem/" target="_blank">http://www.zdrojak.cz/clanky/zaciname-z-html5-canvasem/</a></li>
                     <li><a href="http://www.zdrojak.cz/clanky/svg-nebo-canvas-vyberte-si/" target="_blank">http://www.zdrojak.cz/clanky/svg-nebo-canvas-vyberte-si/</a></li>
@@ -95,7 +372,7 @@
                 </ul>
             </section>
             <footer style="border-top: 1px solid gray;">
-                Tyto stránky jsou prozatím pouze jakousi betaverzí a budou do budoucna zlepšovány. Pokud máte jakékoli nápady, nebo dotazy, neváhejte na mě obrátit :)
+                Tyto stránky jsou prozatím pouze betaverzí a budou do budoucna zdokonalovány. Pokud máte jakékoli nápady, nebo dotazy, neváhejte se na mě obrátit :)
                 <br><br>
                 <p style="text-align: center;">
                     @TonnyVlcek | vlcek.a@email.cz | 2014
